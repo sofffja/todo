@@ -1,18 +1,18 @@
 import './style.css'
 import Todo from './todoItem'
-import Project from './project.js'
+import List from './list.js'
 
-const defaultProject = new Project('default');
+const defaultList = new List('default');
 
-for (let i = 1; i <= 8; i++) {
+for (let i = 1; i <= 5; i++) {
   const defaultTodo = new Todo(`task ${i}`, `description ${i}`, '19-02-24', 1);
-  defaultProject.todos.push(defaultTodo);
+  defaultList.todos.push(defaultTodo);
 }
 
 
 const todos = function() {
   function add(title, description, dueDate, priority) {
-    defaultProject.todos.push(new Todo(title, description, dueDate, priority));
+    defaultList.todos.push(new Todo(title, description, dueDate, priority));
     DOMHandler.displayTodos();
   }
 
@@ -21,12 +21,14 @@ const todos = function() {
 
 const DOMHandler = function() {
   const todosDiv = document.querySelector('#todos');
+  const listsDiv = document.querySelector('#lists');
   displayTodos();
 
   function displayTodos() {
     todosDiv.textContent = '';
-    for (const todo of defaultProject.todos) {
+    for (const todo of defaultList.todos) {
       const newItem = createTodo(todo);
+      newItem.setAttribute('index', defaultList.todos.indexOf(todo));
       todosDiv.appendChild(newItem)
     }
   };
@@ -48,7 +50,17 @@ const DOMHandler = function() {
     priority.textContent = todo.priority;
 
     done.textContent = 'done';
+    done.addEventListener('click', (e) => {
+      e.target.classList.toggle('done');
+      todo.toggleDone()
+    })
+    
     deleteTodo.textContent = 'delete';
+    deleteTodo.addEventListener('click', (e) => {
+      let index = e.target.closest('[index]')
+      defaultList.todos.splice(index, 1);
+      displayTodos();
+    })
 
     btnsDiv.classList.add('todo-btns')
     btnsDiv.append(done, deleteTodo);
