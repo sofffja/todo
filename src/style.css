@@ -1,0 +1,61 @@
+/* general */
+*:not(dialog) {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Courier New', Courier, monospace;
+}
+
+/* sections */
+main {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+}
+
+menu {
+  min-height: 100vh;
+  background-color: #aaa;
+  padding: 16px;
+}
+
+.content {
+  margin: 16px;
+}
+
+#todos {
+  margin: 16px 0;
+  display: grid;
+  gap: 16px;
+}
+
+
+/* elements */
+.new-todo {
+  margin-top: 16px;
+}
+
+.todo-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px;
+  border: 1px solid black;
+}
+
+button {
+  font-family: inherit;
+  padding: 0.25rem;
+}
+
+.todo-btns {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+/* states */
+.done {
+  background-color: greenyellow;
+}
