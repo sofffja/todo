@@ -43,9 +43,18 @@ const DOMHandler = function() {
   const listsDiv = document.querySelector('#lists');
   const currentListH1 = document.querySelector('#current-list');
   const newListBtn = document.querySelector('.new-list');
-  displayTodos();
-  displayLists();
   
+  const initDOM = function() {
+    displayTodos();
+    displayLists();
+    displayCurrentList();
+  }()
+
+  function displayCurrentList() {
+    currentListH1.textContent = lists.getCurrent().title;
+    console.log(lists.getCurrent().title)
+  };
+
   function displayLists() {
     listsDiv.textContent = '';
     for (const list of lists.listsArray) {
@@ -57,6 +66,8 @@ const DOMHandler = function() {
       listsDiv.addEventListener('click', (e) => {
         let index = e.target.getAttribute('index');
         lists.setCurrent(index);
+        displayCurrentList();
+        displayTodos();
       })
     }
   };
