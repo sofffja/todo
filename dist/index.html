@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TO-DO</title>
+<script defer src="main.js"></script></head>
+<body>
+  <h1>hi</h1>
+  <button class="new-todo">new to-do</button>
+  <div id="content"></div>
+
+  <dialog>
+    <h3>Add to-do</h3>
+
+    <form class="dialog-form">
+      <div class="form-item">
+        <label for="title">Title:</label>
+        <input type="text" name="title" id="title">
+      </div>
+      <div class="form-item">
+        <label for="description">Description:</label>
+        <input type="text" name="description" id="description">
+      </div>
+      <div class="form-item">
+        <label for="due-date">Due date:</label>
+        <input type="number" name="due-date" id="due-date">
+      </div>
+      <div class="form-item">
+        <label for="priority">Priority:</label>
+        <input type="number" name="priority" id="priority">
+      </div>
+
+      <button class="button ok" id="submit" value="default">OK</button>
+      <button class="button close" formmethod="dialog" value="cancel">CLOSE</button>
+    </form>
+  </dialog>
+</body>
+</html>
