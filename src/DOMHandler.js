@@ -10,8 +10,12 @@ const newListBtn = document.querySelector('.new-list');
 const newTaskBtn = document.querySelector('.new-task')
 
 const initDOM = function () {
-  loadDefault();
-
+  if (!localStorage.getItem('userdata')) {
+    loadDefault();
+  } else {
+    loadLocalStorage();
+  };
+  
   if (listsArray.array.length !== 0) {
     displayLists();
     displayCurrentList();
@@ -30,6 +34,19 @@ function loadDefault() {
     }
 
     populateStorage();
+}
+
+function loadLocalStorage() {
+  const userData = JSON.parse(localStorage.getItem('userdata'));
+    let i = 0;
+    for (const userList of userData) {
+      listsArray.addList(userList.title);
+      for (const userTask of userList.tasks) {
+        listsArray.array[i].addTask(new Task(userTask.title, userTask.description, userTask.dueDate, userTask.priority, userTask.done));
+      }
+      i++;
+    }
+    listsArray.setCurrent(0);
 }
 
 function displayCurrentList() {
