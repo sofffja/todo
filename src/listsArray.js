@@ -10,7 +10,6 @@ export const listsArray = function () {
   };
 
   const removeList = (index) => {
-    console.log(array)
     array.splice(index, 1)
   }
 

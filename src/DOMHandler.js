@@ -64,17 +64,28 @@ function displayLists() {
     const listDelete = document.createElement('button');
     listDelete.textContent = 'X';
     listDelete.addEventListener('click', (e) => {
-      listsArray.removeList(listsArray.array.indexOf(list));
+      let index = listsArray.array.indexOf(list)
+      
+      if (index === listsArray.array.indexOf(listsArray.getCurrent())) {
+        console.log('aha')
+        listsArray.setCurrent(0);
+        displayCurrentList();
+      }
+      
+      listsArray.removeList(index);
+      populateStorage();
       displayLists();
     })
 
     const listDiv = document.createElement('div');
     listDiv.setAttribute('index', listsArray.array.indexOf(list));
     listDiv.addEventListener('click', (e) => {
-      let index = e.target.closest('[index]').getAttribute('index');
-      listsArray.setCurrent(index);
-      displayCurrentList();
-      populateStorage();
+      if (e.target.tagName !== 'BUTTON') {
+        let index = e.target.closest('[index]').getAttribute('index');
+        listsArray.setCurrent(index);
+        displayCurrentList();
+        populateStorage();
+      }
     });
 
     listDiv.append(listPara, listDelete);
