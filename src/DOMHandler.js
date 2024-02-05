@@ -1,7 +1,8 @@
 import { listsArray } from './listsArray.js';
 import { populateStorage } from './populateStorage.js';
 import Task from './task.js';
-import { openModal } from './modalForm.js';
+import openTaskModal from './newTaskModal.js';
+import openListModal from './newListModal.js';
 
 const tasksDiv = document.querySelector('#tasks');
 const listsDiv = document.querySelector('#lists');
@@ -62,16 +63,20 @@ function displayLists() {
 
     const listDelete = document.createElement('button');
     listDelete.textContent = 'X';
+    listDelete.addEventListener('click', (e) => {
+      listsArray.removeList(listsArray.array.indexOf(list));
+      displayLists();
+    })
 
     const listDiv = document.createElement('div');
     listDiv.setAttribute('index', listsArray.array.indexOf(list));
     listDiv.addEventListener('click', (e) => {
       let index = e.target.closest('[index]').getAttribute('index');
-      console.log(index);
       listsArray.setCurrent(index);
       displayCurrentList();
       populateStorage();
     });
+
     listDiv.append(listPara, listDelete);
     listsDiv.appendChild(listDiv);
   }
@@ -129,18 +134,12 @@ function createTaskDiv(task) {
 
 function eventsHandler() {
   newListBtn.addEventListener('click', (e) => {
-    console.log('new list...')
-    let title = prompt('list title?', 'New list');
-    listsArray.addList(title);
-    displayLists();
-    populateStorage();
-    listsArray.setCurrent(listsArray.array.length - 1);
-    displayCurrentList();
+    openListModal();
   });
 
   newTaskBtn.addEventListener('click', (e) => {
-    openModal();
+    openTaskModal();
   });
 };
 
-export { initDOM, displayTasks }
+export { initDOM, displayTasks, displayLists, displayCurrentList }

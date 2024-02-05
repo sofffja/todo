@@ -2,11 +2,11 @@ import { displayTasks } from "./DOMHandler";
 import { listsArray } from "./listsArray";
 import { populateStorage } from "./populateStorage";
 
-const dialog = document.querySelector('dialog');
-const submitBtn = document.querySelector('#submit');
-const closeModalBtn = document.querySelector('.close');
+const dialog = document.querySelector('#task-dialog');
+const submitBtn = document.querySelector('#task-submit');
+const closeModalBtn = document.querySelector('#task-close');
 
-const titleInput = document.querySelector('#title');
+const titleInput = document.querySelector('#task-title');
 const descriptionInput = document.querySelector('#description');
 const dueDateInput = document.querySelector('#due-date');
 const priorityInputs = document.querySelectorAll('[name="priority"]');
@@ -38,4 +38,4 @@ submitBtn.addEventListener('click', (e) => {
   document.querySelector('form').reset();
 });
 
-export { openModal }
+export default openModal;
