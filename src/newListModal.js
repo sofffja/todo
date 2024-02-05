@@ -27,7 +27,7 @@ submitBtn.addEventListener('click', (e) => {
   displayCurrentList();
 
   dialog.close();
-  document.querySelector('form').reset();
+  document.querySelector('#list-form').reset();
 });
 
 export default openModal;

@@ -35,7 +35,7 @@ submitBtn.addEventListener('click', (e) => {
   populateStorage();
 
   dialog.close();
-  document.querySelector('form').reset();
+  document.querySelector('#task-form').reset();
 });
 
 export default openModal;
