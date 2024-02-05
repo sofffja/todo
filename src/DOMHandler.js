@@ -67,7 +67,6 @@ function displayLists() {
       let index = listsArray.array.indexOf(list)
       
       if (index === listsArray.array.indexOf(listsArray.getCurrent())) {
-        console.log('aha')
         listsArray.setCurrent(0);
         displayCurrentList();
       }
@@ -78,10 +77,9 @@ function displayLists() {
     })
 
     const listDiv = document.createElement('div');
-    listDiv.setAttribute('index', listsArray.array.indexOf(list));
     listDiv.addEventListener('click', (e) => {
       if (e.target.tagName !== 'BUTTON') {
-        let index = e.target.closest('[index]').getAttribute('index');
+        let index = listsArray.array.indexOf(list);
         listsArray.setCurrent(index);
         displayCurrentList();
         populateStorage();
@@ -98,7 +96,6 @@ function displayTasks() {
   if (lists) {
     for (const task of listsArray.getCurrent().tasks) {
       const newItem = createTaskDiv(task);
-      newItem.setAttribute('index', listsArray.getCurrent().tasks.indexOf(task));
       tasksDiv.appendChild(newItem);
     }
   }
@@ -128,7 +125,7 @@ function createTaskDiv(task) {
 
   deleteTask.textContent = 'delete';
   deleteTask.addEventListener('click', (e) => {
-    let index = e.target.closest('[index]').getAttribute('index');
+    let index = listsArray.getCurrent().tasks.indexOf(task);
     listsArray.getCurrent().removeTask(index);
     displayTasks();
     populateStorage();
