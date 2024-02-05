@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&family=IBM+Plex+Sans:wght@400;500&display=swap');
 
 /* general */
 *:not(dialog) {
@@ -9,7 +9,9 @@
 
 body {
   font-family: Arial, Helvetica, sans-serif;
-  background-color: #f4f4f4;
+  font-family: 'IBM Plex Sans', sans-serif;
+  background-color: #fff;
+  color: #333;
 }
 
 /* sections */
@@ -20,7 +22,7 @@ main {
 
 menu {
   min-height: 100vh;
-  background-color: #dbdbdb;
+  background-color: #efefef;
   padding: 16px;
 }
 
@@ -28,46 +30,70 @@ menu {
   margin: 16px;
 }
 
-#todos {
+#tasks {
   margin: 16px 0;
   display: grid;
   gap: 16px;
 }
 
+#lists {
+  margin: 16px 0;
+  display: grid;
+  gap: 8px;
+}
+
+.section-header {
+  display: flex;
+  gap: 16px;
+  align-items: baseline;
+}
 
 /* elements */
 h1, h2, h3 {
   font-size: 1rem;
+  font-weight: 500;
 }
 
-.new-todo,
-.new-list {
-  margin-top: 16px;
+#lists > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
 }
 
-.todo-item {
-  background-color: #fdfdfd;
+#lists > div:hover {
+  border-bottom: 1px solid black;
+  cursor: pointer;
+}
+
+.task-item {
+  /* background-color: #fdfdfd; */
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 8px;
-  border: 1px solid black;
-  border-radius: 32px;
+  /* border: 1px solid black; */
+  border-bottom: 1px solid #e7e7e7;
+  /* border-radius: 32px; */
 }
 
 button {
   font-family: 'IBM Plex Mono', monospace;
   text-transform: uppercase;
   line-height: 1rem;
-  background-color: #f7f7f7;
-  border: 1px solid black;
-  /* border: none; */
+  /* background-color: #f7f7f7; */
+  /* border: 1px solid black; */
+  background: transparent;
+  border: none;
   border-radius: 32px;
-  padding: 0.25rem 0.5rem;
+  /* padding: 0.25rem 0.5rem; */
   /* box-shadow: inset -2px -2px 3px #aaa, inset 2px 2px 4px #fff; */
 }
 
-.todo-btns {
+button:hover {
+  cursor: pointer;
+}
+
+.task-btns {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 8px;
@@ -75,5 +101,5 @@ button {
 
 /* states */
 .done {
-  background-color: greenyellow;
+  color: rgb(67, 194, 16);
 }
