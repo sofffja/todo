@@ -118,9 +118,13 @@ function createTaskDiv(task) {
   priority.textContent = task.priority;
 
   done.textContent = 'done';
+  if (task.done === true) {
+    done.classList.add('done')
+  }
   done.addEventListener('click', (e) => {
-    e.target.classList.toggle('done');
     task.toggleDone();
+    populateStorage();
+    e.target.classList.toggle('done');
   });
 
   deleteTask.textContent = 'delete';
