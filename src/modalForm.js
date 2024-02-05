@@ -9,9 +9,9 @@ const closeModalBtn = document.querySelector('.close');
 const titleInput = document.querySelector('#title');
 const descriptionInput = document.querySelector('#description');
 const dueDateInput = document.querySelector('#due-date');
-const priorityInput = document.querySelector('#priority');
+const priorityInputs = document.querySelectorAll('[name="priority"]');
 
-export const openModal = () => {
+const openModal = () => {
   dialog.showModal();
 }
 
@@ -21,11 +21,21 @@ closeModalBtn.addEventListener('click', () => {
 
 submitBtn.addEventListener('click', (e) => {
   e.preventDefault();
+
+  let selectedPriority;
+  for (const priority of priorityInputs) {
+    if (priority.checked) {
+      selectedPriority = priority.value;
+      break;
+    }
+  }
   
-  listsArray.addToCurrent(titleInput.value, descriptionInput.value, dueDateInput.value, priorityInput.value)
+  listsArray.addToCurrent(titleInput.value, descriptionInput.value, dueDateInput.value, selectedPriority)
   displayTasks();
   populateStorage();
 
   dialog.close();
   document.querySelector('form').reset();
 });
+
+export { openModal }
