@@ -1,5 +1,6 @@
 import { displayTasks } from "./DOMHandler";
 import { listsArray } from "./listsArray";
+import { populateStorage } from "./populateStorage";
 
 const dialog = document.querySelector('dialog');
 const submitBtn = document.querySelector('#submit');
@@ -23,6 +24,7 @@ submitBtn.addEventListener('click', (e) => {
   
   listsArray.addToCurrent(titleInput.value, descriptionInput.value, dueDateInput.value, priorityInput.value)
   displayTasks();
+  populateStorage();
 
   dialog.close();
   document.querySelector('form').reset();

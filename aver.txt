@@ -1,0 +1,54 @@
+task
+  -propiedades
+  -toggleDone
+  -setPriority
+
+list
+  -addTask
+  -removeTask
+  -getTasks
+
+listsArray
+  -addList
+  -removeList
+  -setCurrent
+  -getCurrent
+  -getLists
+
+renderListsArray
+  for list of listsArray.getLists
+    titulo
+      eventListener ->
+        listsArray.setCurrent
+        renderListsArray
+    removeBtn
+      eventListener ->
+        listsArray.removeList
+        renderListsArray
+
+renderTasks
+  for task of listsArray.getCurrent.getTasks
+    task.propiedades
+    doneBtn
+      eventListener ->
+        toggleDone
+        toggle class?
+    removeBtn
+      eventListener ->
+        listsArray.getCurrent.removeTask
+        renderTasks
+
+DOMHandler
+  DOMInit
+    si hay localStorage -> loadLocalStorage
+    sino -> loadDefault
+  loadDefault
+  loadLocalStorage
+  modalForm
+
+
+
+FIX
+-done status se resetea cuando vuelve a dibujar, deberia toggle class segun done o no
+-que se eliminen cosas sin agregar attribute data
+-borrar listas
