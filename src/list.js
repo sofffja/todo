@@ -11,4 +11,16 @@ export default class List {
   removeTask(index) {
     this.tasks.splice(index, 1)
   }
+
+  set title(value) {
+    if (value === '') {
+      this._title = 'New list';
+      return;
+    }
+    this._title = value;
+  }
+
+  get title() {
+    return this._title;
+  }
 }

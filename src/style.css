@@ -76,6 +76,24 @@ h1, h2, h3 {
   /* border-radius: 32px; */
 }
 
+.task-item {
+  display: grid;
+  grid-template-columns: 1rem 1fr auto 1rem 90px 1rem;
+  gap: 8px;
+  align-items: center;
+}
+
+.task-description {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.8rem;
+
+}
+
+.task-item:hover .task-done::before {
+  
+  content: '✓';
+}
+
 button {
   font-family: 'IBM Plex Mono', monospace;
   text-transform: uppercase;
@@ -93,10 +111,14 @@ button:hover {
   cursor: pointer;
 }
 
-.task-btns {
+/* .task-btns {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 8px;
+  grid-template-columns: repeat(2, 1rem);
+} */
+
+#lists > div:hover > .list-delete::before,
+.task-item:hover .task-delete::before {
+  content: 'X';
 }
 
 /* modal dialg */
@@ -148,6 +170,8 @@ dialog button {
 }
 
 /* states */
-.done {
-  color: rgb(67, 194, 16);
+.done * {
+  text-decoration: line-through;
+  font-weight: 400;
+  color: #aaa;
 }

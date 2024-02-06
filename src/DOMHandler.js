@@ -4,12 +4,6 @@ import Task from './task.js';
 import openTaskModal from './newTaskModal.js';
 import openListModal from './newListModal.js';
 
-const tasksDiv = document.querySelector('#tasks');
-const listsDiv = document.querySelector('#lists');
-const currentListH1 = document.querySelector('#current-list');
-const newListBtn = document.querySelector('.new-list');
-const newTaskBtn = document.querySelector('.new-task')
-
 const initDOM = function () {
   if (!localStorage.getItem('userdata')) {
     loadDefault();
@@ -41,9 +35,10 @@ function loadLocalStorage() {
   const userData = JSON.parse(localStorage.getItem('userdata'));
     let i = 0;
     for (const userList of userData) {
-      listsArray.addList(userList.title);
+      listsArray.addList(userList._title);
+      console.log(userList);
       for (const userTask of userList.tasks) {
-        listsArray.array[i].addTask(new Task(userTask.title, userTask.description, userTask.dueDate, userTask.priority, userTask.done));
+        listsArray.array[i].addTask(new Task(userTask._title, userTask.description, userTask.dueDate, userTask.priority, userTask.done));
       }
       i++;
     }
@@ -51,29 +46,41 @@ function loadLocalStorage() {
 }
 
 function displayCurrentList() {
+  const currentListH1 = document.querySelector('#current-list');
+
   currentListH1.textContent = listsArray.getCurrent().title;
   displayTasks();
 };
 
 function displayLists() {
+  const listsDiv = document.querySelector('#lists');
+
   listsDiv.textContent = '';
   for (const list of listsArray.array) {
     const listPara = document.createElement('p');
     listPara.textContent = list.title;
 
     const listDelete = document.createElement('button');
-    listDelete.textContent = 'X';
+    listDelete.classList.add('list-delete');
+    listDelete.textContent = '';
     listDelete.addEventListener('click', (e) => {
-      let index = listsArray.array.indexOf(list)
-      
-      if (index === listsArray.array.indexOf(listsArray.getCurrent())) {
-        listsArray.setCurrent(0);
-        displayCurrentList();
+      if (listsArray.array.length !== 1) {
+        
+        let index = listsArray.array.indexOf(list)
+        let indexOfCurrent = listsArray.array.indexOf(listsArray.getCurrent());
+        
+        if (index === 0) {
+          listsArray.setCurrent(index + 1);
+          displayCurrentList();
+        } else if (index === indexOfCurrent) {
+          listsArray.setCurrent(index - 1);
+          displayCurrentList();
+        }
+        
+        listsArray.removeList(index);
+        populateStorage();
+        displayLists();
       }
-      
-      listsArray.removeList(index);
-      populateStorage();
-      displayLists();
     })
 
     const listDiv = document.createElement('div');
@@ -92,6 +99,7 @@ function displayLists() {
 };
 
 function displayTasks() {
+  const tasksDiv = document.querySelector('#tasks');
   tasksDiv.textContent = '';
   if (lists) {
     for (const task of listsArray.getCurrent().tasks) {
@@ -117,17 +125,22 @@ function createTaskDiv(task) {
   dueDate.textContent = task.dueDate;
   priority.textContent = task.priority;
 
-  done.textContent = 'done';
+  description.classList.add('task-description')
+
+  done.textContent = '';
+  done.classList.add('task-done')
   if (task.done === true) {
-    done.classList.add('done')
+    // done.closest('.task-item').classList.add('done')
   }
   done.addEventListener('click', (e) => {
     task.toggleDone();
     populateStorage();
+    e.target.closest('.task-item').classList.toggle('done');
     e.target.classList.toggle('done');
   });
 
-  deleteTask.textContent = 'delete';
+  deleteTask.textContent = '';
+  deleteTask.classList.add('task-delete')
   deleteTask.addEventListener('click', (e) => {
     let index = listsArray.getCurrent().tasks.indexOf(task);
     listsArray.getCurrent().removeTask(index);
@@ -136,15 +149,18 @@ function createTaskDiv(task) {
   });
 
   btnsDiv.classList.add('task-btns');
-  btnsDiv.append(done, deleteTask);
+  btnsDiv.append(deleteTask, done);
 
   newItem.classList.add('task-item');
-  newItem.append(title, description, dueDate, priority, btnsDiv);
+  newItem.append(done, title, description, priority, dueDate, deleteTask);
 
   return newItem;
 }
 
 function eventsHandler() {
+  const newListBtn = document.querySelector('.new-list');
+  const newTaskBtn = document.querySelector('.new-task');
+
   newListBtn.addEventListener('click', (e) => {
     openListModal();
   });
