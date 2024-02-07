@@ -1,6 +1,6 @@
+import List from "./list";
 import { displayCurrentList, displayLists } from "./DOMHandler";
-import { listsArray } from "./listsArray";
-import { populateStorage } from "./populateStorage";
+import { populateStorage } from "./localStorage";
 
 const dialog = document.querySelector('#list-dialog');
 const submitBtn = document.querySelector('#list-submit');
@@ -20,10 +20,10 @@ closeModalBtn.addEventListener('click', () => {
 submitBtn.addEventListener('click', (e) => {
   e.preventDefault();
   
-  listsArray.addList(titleInput.value);
+  List.addList(titleInput.value);
   displayLists();
   populateStorage();
-  listsArray.setCurrent(listsArray.array.length - 1);
+  List.setCurrent(List.array.length - 1);
   displayCurrentList();
 
   dialog.close();

@@ -1,6 +1,6 @@
+import List from "./list";
 import { displayTasks } from "./DOMHandler";
-import { listsArray } from "./listsArray";
-import { populateStorage } from "./populateStorage";
+import { populateStorage } from "./localStorage";
 
 const dialog = document.querySelector('#task-dialog');
 const submitBtn = document.querySelector('#task-submit');
@@ -29,8 +29,7 @@ submitBtn.addEventListener('click', (e) => {
       break;
     }
   }
-  
-  listsArray.addToCurrent(titleInput.value, descriptionInput.value, dueDateInput.value, selectedPriority)
+  List.addToCurrent(titleInput.value, descriptionInput.value, dueDateInput.value, selectedPriority)
   displayTasks();
   populateStorage();
 
