@@ -4,11 +4,11 @@ export default class Task {
     this.description = description;
     this.dueDate = dueDate;
     this.priority = priority;
-    this.done = done ? done : false;
+    this.done = done || false;
   }
 
   toggleDone() {
-    this.done = this.done ? false : true;
+    this.done = !this.done;
   }
 
   set title(value) {

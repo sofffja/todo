@@ -23,12 +23,13 @@ submitBtn.addEventListener('click', (e) => {
   e.preventDefault();
 
   let selectedPriority;
-  for (const priority of priorityInputs) {
+
+  priorityInputs.forEach((priority) => {
     if (priority.checked) {
       selectedPriority = priority.value;
-      break;
     }
-  }
+  })
+
   List.addToCurrent(titleInput.value, descriptionInput.value, dueDateInput.value, selectedPriority)
   displayTasks();
   populateStorage();

@@ -2,6 +2,7 @@ import Task from "./task";
 
 export default class List {
   static #allLists = [];
+  
   static #currentList;
 
   static addList(title) {

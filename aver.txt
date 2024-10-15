@@ -49,6 +49,8 @@ DOMHandler
 
 
 FIX
--done status se resetea cuando vuelve a dibujar, deberia toggle class segun done o no
--que se eliminen cosas sin agregar attribute data
--borrar listas
+-que hacer con la descipcion
+  decia que puedas desplegar para ver mas info capazzz
+-poner bien las fechas
+-si task completo que quede tachado o que directamente se borre?
+-mas bonito, hovers, etc
